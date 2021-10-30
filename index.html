@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mesto</title>
+	<link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="root">
+
+	<div class="page">
+		<header class="header">
+			<img class="header__logo" src="./images/header/header-logo.svg" alt="Место">
+		</header>
+		
+		<main class="main">
+			<section class="profile">
+				<div class="profile__avatar"></div>
+				<div class="profile__info">
+					<div class="profile__title-container">
+						<h1 class="profile__title">Жак-Ив Кусто</h1>
+						<div class="profile__edit-button"></div>
+					</div>
+					<p class="profile__subtitle">Исследователь океана</p>
+				</div>
+				<div class="profile__add-button"></div>
+			</section>
+		
+			<section class="elements">
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-karachaevsk.jpg" alt="Карачаевск">
+					<div class="element__title-container">
+						<h2 class="element__title">Карачаевск</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+				
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-elbrus.jpg" alt="Гора Эльбрус">
+					<div class="element__title-container">
+						<h2 class="element__title">Гора Эльбрус</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+				
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-dombay.jpg" alt="Домбай">
+					<div class="element__title-container">
+						<h2 class="element__title">Домбай</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+				
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-elbrus.jpg" alt="Гора Эльбрус">
+					<div class="element__title-container">
+						<h2 class="element__title">Гора Эльбрус</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+				
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-dombay.jpg" alt="Домбай">
+					<div class="element__title-container">
+						<h2 class="element__title">Домбай</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+				
+				<article class="element">
+					<img class="element__image" src="./images/elements/elements-karachaevsk.jpg" alt="Карачаево-Черкесия">
+					<div class="element__title-container">
+						<h2 class="element__title">Карачаево-Черкесия</h2>
+						<div class="element__like"></div>
+					</div>
+				</article>
+			</section>
+		</main>
+		
+		<footer class="footer">
+			<p class="footer__description">&copy; 2021 Mesto Russia</p>
+		</footer>
+		
+		<div class="popup">
+			<div class="popup__container">
+				<h3 class="popup__title">Редактировать профиль</h3>
+					<form class="popup__input">
+						<input type="text" class="popup__text popup__text_type_name">
+						<input type="text" class="popup__text popup__text_type_about">
+						<button type="submit" class="popup__save-btn">Сохранить</button>
+					</form>
+					<div class="popup__close-icon"></div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="./scripts/index.js"></script>
+</body>
+</html>
