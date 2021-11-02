@@ -1,6 +1,11 @@
 .element__like {
 	width: 22px;
 	height: 19px;
+	background: none;
+	border: none;
+	border-radius: 0;
+	outline: none;
+	padding: 0;
 	margin-right: 20px;
 	background-size: 100%;
 	cursor: pointer;
@@ -8,13 +13,9 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	opacity: 1;
+	transition: opacity .3s ease-in; 
 }
 
 .element__like:hover {
 	opacity: 0.5;
-}
-
-.element__like:active {
-	opacity: 1;
-	background-image: url(../../../images/elements/elements-like-active.svg);
 }

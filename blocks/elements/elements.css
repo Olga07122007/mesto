@@ -1,6 +1,7 @@
 .elements {
 	margin: 0 auto;
 	width: 69%;
+	min-height: 744px;
 	display: grid;
 	grid-template-columns: repeat(3, 282px);
 	justify-content: space-between;
