@@ -29,7 +29,6 @@ const initialCards = [
 //для создания элемента
 const userTemplate = document.querySelector('#element').content;
 const sectionElements = document.querySelector('.elements');
-let newElement = '';
 
 //профиль
 const profileTitle = document.querySelector('.profile__title');
