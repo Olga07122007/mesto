@@ -1,31 +1,3 @@
-//массив элементов
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 //для создания элемента
 const userTemplate = document.querySelector('#element').content;
 const sectionElements = document.querySelector('.elements');
@@ -61,7 +33,14 @@ const popupImageTitle = popupImage.querySelector('.popup__description');
 //функция-открытие попапа
 function openForm(popupElement) {
 	popupElement.classList.add('popup_opened');
-	}
+	
+	hideError();
+	toggleButton();
+	
+	const popupOpenedForm = document.querySelector('.popup_opened');
+	document.addEventListener('keydown', closePopupEscOverlay);
+	popupOpenedForm.addEventListener('click', closePopupEscOverlay);
+}
 
 //функция-закрытие попапа
 function closeForm(popupElement) {
@@ -84,10 +63,11 @@ function createNewElement (newName, newLink) {
 	userElement.querySelector('.element__title').textContent = newName;
 	elementImage.alt = newName;
 	//сердечко
-	userElement.querySelector('.element__like').addEventListener('click', evt => {
-		const buttonLike = evt.target;
-		buttonLike.classList.toggle('element__like_active');
-	});
+	userElement.addEventListener('click', function (evt) {
+		if (evt.target.classList.contains('element__like')) {
+				evt.target.classList.toggle('element__like_active');
+			}
+		}); 
 	//удаление
 	userElement.querySelector('.element__delete').addEventListener('click', () => {
 		userElement.remove();
@@ -108,17 +88,62 @@ function addPhotoElement (evt) {
 	closeForm(popupAdd);
 }
 
+//функция закрыпия попапа по Esc и по нажатию на Overlay
+function closePopupEscOverlay(evt) {
+  if ((evt.key==='Escape') || (evt.target.classList.contains('popup_opened'))) {
+		const popupOpened = document.querySelector('.popup_opened');
+		closeForm(popupOpened);
+		document.removeEventListener('keydown', closePopupEscOverlay);
+		popupOpened.removeEventListener('click', closePopupEscOverlay);
+  }
+}
+
+//снять ошибку при закрытии
+function hideError(){
+	const popupOpened = document.querySelector('.popup_opened');
+	const inputList = Array.from(popupOpened.querySelectorAll('.popup__text_type_error'));
+	
+	if (inputList.length!==0) {
+		const errorList = Array.from(popupOpened.querySelectorAll('.popup__error_active'));
+		
+		inputList.forEach((inputElement) => {
+			inputElement.classList.remove('popup__text_type_error');
+		});
+		
+		errorList.forEach((errorElement) => {
+			errorElement.classList.remove('popup__error_active');
+			errorElement.textContent = '';
+		});
+	}
+};
+
+//кнопка при открытии
+function toggleButton(){
+	const popupOpened = document.querySelector('.popup_opened');
+	const inputList = Array.from(popupOpened.querySelectorAll('.popup__text'));
+	
+	if (inputList.length!==0) {
+		const buttonElement = popupOpened.querySelector('.popup__save-btn');
+		if (hasInvalidInput(inputList)) {
+			buttonElement.classList.add('popup__save-btn_inactive');
+		} 
+		else {
+			buttonElement.classList.remove('popup__save-btn_inactive');
+		}
+	}	
+};
+
 //открытие попапа
 buttonEditOpen.addEventListener('click', () => {
-  openForm(popupEdit);
-	nameInput.value=profileTitle.textContent;
+  nameInput.value=profileTitle.textContent;
 	jobInput.value=profileSubtitle.textContent;
+	openForm(popupEdit);
 });
 
 buttonAddOpen.addEventListener('click', () => {
-  openForm(popupAdd);
-	photoNameInput.value = '';
+  photoNameInput.value = '';
 	photoSrcInput.value = '';
+	openForm(popupAdd);
 });
 
 //закрытие попапа
@@ -144,3 +169,6 @@ formAdd.addEventListener('submit', addPhotoElement);
 initialCards.forEach(card => {
 	sectionElements.append(createNewElement (card.name, card.link));
 });
+
+
+
