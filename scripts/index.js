@@ -31,20 +31,17 @@ const popupImageImg = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__description');
 
 //функция-открытие попапа
-function openForm(popupElement) {
+function openPopup(popupElement) {
 	popupElement.classList.add('popup_opened');
-	
-	hideError();
-	toggleButton();
-	
-	const popupOpenedForm = document.querySelector('.popup_opened');
-	document.addEventListener('keydown', closePopupEscOverlay);
-	popupOpenedForm.addEventListener('click', closePopupEscOverlay);
+	document.addEventListener('keydown', closePopupEsc);
+	document.addEventListener('click', closePopupOverlay);
 }
 
 //функция-закрытие попапа
-function closeForm(popupElement) {
+function closePopup(popupElement) {
 	popupElement.classList.remove('popup_opened');
+	document.removeEventListener('keydown', closePopupEsc);
+	document.removeEventListener('click', closePopupOverlay);
 }
 
 //функция редактирования профиля
@@ -52,7 +49,7 @@ function editProfile(evt) {
 	evt.preventDefault();
 	profileTitle.textContent=nameInput.value;
 	profileSubtitle.textContent=jobInput.value;
-	closeForm(popupEdit);
+	closePopup(popupEdit);
 }
 
 //ФУНКЦИЯ - создание элемента
@@ -74,8 +71,9 @@ function createNewElement (newName, newLink) {
 	});
 	//открытие попапа с картинкой
 	elementImage.addEventListener('click', () => {
-		openForm(popupImage);
+		openPopup(popupImage);
 		popupImageImg.src = newLink;
+		popupImageImg.alt = newName;
 		popupImageTitle.textContent = newName;
 	});
 	return userElement;
@@ -85,31 +83,33 @@ function createNewElement (newName, newLink) {
 function addPhotoElement (evt) {
 	evt.preventDefault();
 	sectionElements.prepend(createNewElement (photoNameInput.value, photoSrcInput.value));
-	closeForm(popupAdd);
+	closePopup(popupAdd);
 }
 
-//функция закрыпия попапа по Esc и по нажатию на Overlay
-function closePopupEscOverlay(evt) {
-  if ((evt.key==='Escape') || (evt.target.classList.contains('popup_opened'))) {
+//функция закрыпия попапа по Esc
+function closePopupEsc(evt) {
+  if (evt.key==='Escape') {
 		const popupOpened = document.querySelector('.popup_opened');
-		closeForm(popupOpened);
-		document.removeEventListener('keydown', closePopupEscOverlay);
-		popupOpened.removeEventListener('click', closePopupEscOverlay);
-  }
+		closePopup(popupOpened);
+	}
+}
+
+//функция закрыпия попапа по нажатию на Overlay
+function closePopupOverlay(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+		const popupOpened = document.querySelector('.popup_opened');
+		closePopup(popupOpened);
+	}
 }
 
 //снять ошибку при закрытии
-function hideError(){
-	const popupOpened = document.querySelector('.popup_opened');
-	const inputList = Array.from(popupOpened.querySelectorAll('.popup__text_type_error'));
-	
+function hideError(popupActive) {
+	const inputList = Array.from(popupActive.querySelectorAll('.popup__text_type_error'));
 	if (inputList.length!==0) {
-		const errorList = Array.from(popupOpened.querySelectorAll('.popup__error_active'));
-		
+		const errorList = Array.from(popupActive.querySelectorAll('.popup__error_active'));
 		inputList.forEach((inputElement) => {
 			inputElement.classList.remove('popup__text_type_error');
 		});
-		
 		errorList.forEach((errorElement) => {
 			errorElement.classList.remove('popup__error_active');
 			errorElement.textContent = '';
@@ -118,12 +118,10 @@ function hideError(){
 };
 
 //кнопка при открытии
-function toggleButton(){
-	const popupOpened = document.querySelector('.popup_opened');
-	const inputList = Array.from(popupOpened.querySelectorAll('.popup__text'));
-	
+function toggleButton(popupActive) {
+	const inputList = Array.from(popupActive.querySelectorAll('.popup__text'));
 	if (inputList.length!==0) {
-		const buttonElement = popupOpened.querySelector('.popup__save-btn');
+		const buttonElement = popupActive.querySelector('.popup__save-btn');
 		if (hasInvalidInput(inputList)) {
 			buttonElement.classList.add('popup__save-btn_inactive');
 		} 
@@ -137,26 +135,30 @@ function toggleButton(){
 buttonEditOpen.addEventListener('click', () => {
   nameInput.value=profileTitle.textContent;
 	jobInput.value=profileSubtitle.textContent;
-	openForm(popupEdit);
+	openPopup(popupEdit);
+	hideError(popupEdit);
+	toggleButton(popupEdit);
 });
 
 buttonAddOpen.addEventListener('click', () => {
   photoNameInput.value = '';
 	photoSrcInput.value = '';
-	openForm(popupAdd);
+	openPopup(popupAdd);
+	hideError(popupAdd);
+	toggleButton(popupAdd);
 });
 
 //закрытие попапа
 buttonEditClose.addEventListener('click', () => {
-  closeForm(popupEdit);
+  closePopup(popupEdit);
 });
 
 buttoAddClose.addEventListener('click', () => {
-  closeForm(popupAdd);
+  closePopup(popupAdd);
 });
 
 buttonImageClose.addEventListener('click', () => {
-  closeForm(popupImage);
+  closePopup(popupImage);
 });
 
 //редактирование профиля
@@ -169,6 +171,3 @@ formAdd.addEventListener('submit', addPhotoElement);
 initialCards.forEach(card => {
 	sectionElements.append(createNewElement (card.name, card.link));
 });
-
-
-
