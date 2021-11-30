@@ -124,9 +124,11 @@ function toggleButton(popupActive) {
 		const buttonElement = popupActive.querySelector('.popup__save-btn');
 		if (hasInvalidInput(inputList)) {
 			buttonElement.classList.add('popup__save-btn_inactive');
+			buttonElement.disabled = true;
 		} 
 		else {
 			buttonElement.classList.remove('popup__save-btn_inactive');
+			buttonElement.disabled = false;
 		}
 	}	
 };
