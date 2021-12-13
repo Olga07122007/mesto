@@ -8,6 +8,8 @@ class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
 		this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+		this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+		this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 	}
 
 	//показать ошибку
@@ -55,11 +57,17 @@ class FormValidator {
 			this._buttonElement.disabled = false;
 		}
 	};
-
+	
+	//очищение полей формы от ошибок при открытии попапа
+	resetValidation() {
+      this._toggleButtonState(); 
+			this._inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement)
+      });
+	} 
+	
 	//слушатели
 	_setEventListeners = () => {
-		this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-		this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 		this._toggleButtonState();
 		this._inputList.forEach((inputElement) => {
 			inputElement.addEventListener('input', () => {
