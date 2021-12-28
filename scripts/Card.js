@@ -1,11 +1,11 @@
 //класс Card
 class Card {
 	//конструктор
-	constructor(data, cardSelector, openPopupImage) {
+	constructor(data, cardSelector, { handleCardClick }) {
 		this._name = data.name;
 		this._link = data.link;
 		this._cardSelector = cardSelector;
-		this._openPopupImage = openPopupImage;
+		this._handleCardClick = handleCardClick;
 	}
 
 	//клонируем карточку
@@ -37,7 +37,7 @@ class Card {
 		});
 		//просмотр картинки
 		this._elementImage.addEventListener('click', () => {
-			this._openPopupImage(this._name, this._link);
+			this._handleCardClick();
 		});
 	}
 
