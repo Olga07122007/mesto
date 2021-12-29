@@ -4,13 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mesto</title>
-	<link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="root">
 
 	<div class="page">
 		<header class="header">
-			<img class="header__logo" src="./images/header/header-logo.svg" alt="Место">
+			<img class="header__logo" src="<%=require('./images/header/header-logo.svg')%>" alt="Место">
 		</header>
 
 		<main class="main">
@@ -64,7 +63,7 @@
 
 		<div class="popup popup_type_image">
 			<div class="popup__container popup__container_type_image">
-				<img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Архыз">
+				<img class="popup__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt="Архыз">
 				<p class="popup__description"></p>
 				<button type="button" class="popup__close-icon"></button>
 			</div>
@@ -82,7 +81,5 @@
 			<button type="button" class="element__delete"></button>
 		</article>
 	</template>
-
-	<script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
