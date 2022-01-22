@@ -17,6 +17,7 @@
 	background-repeat: no-repeat;
 	opacity: 1;
 	transition: opacity .3s ease-in; 
+	visibility: hidden;
 }
 
 .element__delete:hover {
