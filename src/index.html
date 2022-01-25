@@ -37,9 +37,9 @@
 			<div class="popup__container">
 				<h3 class="popup__title">Редактировать профиль</h3>
 					<form name="formedit" class="popup__input" novalidate>
-						<input type="text" name="nameinput" id="name-input" class="popup__text popup__text_type_name" required minlength="2" maxlength="40">
+						<input type="text" name="nameinput" id="name-input" class="popup__text popup__text_type_name" placeholder="Имя" required minlength="2" maxlength="40">
 						<span class="popup__error name-input-error"></span>
-						<input type="text" name="jobinput" id="job-input" class="popup__text popup__text_type_about" required minlength="2" maxlength="200">
+						<input type="text" name="jobinput" id="job-input" class="popup__text popup__text_type_about" placeholder="Профессиональная деятельность" required minlength="2" maxlength="200">
 						<span class="popup__error job-input-error"></span>
 						<button type="submit" class="popup__save-btn">Сохранить</button>
 					</form>
@@ -65,7 +65,7 @@
 			<div class="popup__container">
 				<h3 class="popup__title">Обновить аватар</h3>
 					<form name="formavatar" class="popup__input" novalidate>
-						<input type="url" name="urlavatarinput" id="url-avatar-input" class="popup__text popup__text_type_about" required>
+						<input type="url" name="urlavatarinput" id="url-avatar-input" class="popup__text popup__text_type_about" placeholder="Ссылка на аватар" required>
 						<span class="popup__error url-avatar-input-error"></span>
 						<button type="submit" class="popup__save-btn">Сохранить</button>
 					</form>

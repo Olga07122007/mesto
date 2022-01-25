@@ -1,7 +1,7 @@
 //класс Card
 class Card {
 	//конструктор
-	constructor(data, cardSelector, api, { handleCardClick }, { deleteCard }, { addLike }, { deleteLike }) {
+	constructor(data, cardSelector, userId, { handleCardClick }, { deleteCard }, { addLike }, { deleteLike }) {
 		this._name = data.name;
 		this._link = data.link;
 		this._id = data._id;
@@ -12,7 +12,7 @@ class Card {
 		this._deleteCard = deleteCard;
 		this._addLike = addLike;
 		this._deleteLike = deleteLike;
-		this._api = api;
+		this._userId = userId;
 	}
 
 	//клонируем карточку
@@ -42,7 +42,24 @@ class Card {
 		this._buttonLike.classList.remove('element__like_active'); 
 		this._counter.textContent = counter;
 	};
-
+	
+	//сердечко закрашено или нет, количество лайков
+	_setLikeStatus() {
+		if (this._likes.length !== 0) {
+				this._likes.forEach(like => {
+					if (this._userId === like._id) {this._buttonLike.classList.add('element__like_active');}
+				})
+		};
+		this._counter.textContent = this._likes.length;
+	};
+	
+	//нужна ли корзина
+	_setDeleteStatus() {
+		if (this._userId === this._owner._id) {
+				this._buttonDelete.classList.add('element__delete_visible');
+		};
+	};
+	
 	//слушатели событий
 	_setEventListeners() {
 		//like
@@ -62,34 +79,22 @@ class Card {
 	//создание карточки
 	generateCard() {
 		this._element = this._getTemplate();
-		this._element.id = this._id;
 		this._buttonLike = this._element.querySelector('.element__like');
 		this._counter = this._element.querySelector('.element__counter');
-		this._counter.textContent = this._likes.length;
 		this._buttonDelete = this._element.querySelector('.element__delete');
 		
 		//сердечко закрашено или нет, нужна ли корзина
-		this._api.getBasicInformation()
-		.then(result => {
-			if (this._likes.length !== 0) {
-				this._likes.forEach(like => {
-					if (result._id === like._id) {this._buttonLike.classList.add('element__like_active');}
-				})
-			};
-			if (result._id === this._owner._id) {
-				this._buttonDelete.classList.add('element__delete_visible');
-			};
-		})
-		.catch((err) => {
-			console.log(`Ошибка: ${err}`);
-		});
+		this._setLikeStatus();
+		this._setDeleteStatus();
 		
 		this._elementImage = this._element.querySelector('.element__image');
 		this._elementTitle = this._element.querySelector('.element__title');
 		this._setEventListeners();
 		this._elementImage.src = this._link;
 		this._elementImage.alt = this._name;
+		this._element.id = this._id;
 		this._elementTitle.textContent = this._name;
+		
 		return this._element;
 	}
 	
