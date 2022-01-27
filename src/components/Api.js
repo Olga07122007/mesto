@@ -35,6 +35,11 @@ class Api {
 			});
 	};
 	
+	//вся информация о пользователе и о карточках
+	getAppInfo() {
+    return Promise.all([this.getBasicInformation(), this.getInitialCards()]);
+  }; 
+	
 	//добавление карточки пользователем
 	addCard(titleinput, urlinput) {
 		return fetch(`${this._baseUrl}/cards`, {

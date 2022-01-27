@@ -24,18 +24,6 @@ class Popup {
 		}
 	}
 	
-	//кнопка submit во время сохранения данных пользователя
-	renderLoading(isLoading) { 
-		this._popupButton = this._popupElement.querySelector('.popup__save-btn');
-		if (isLoading) { 
-			this._buttonSaveText = this._popupButton.textContent;
-			this._popupButton.textContent = 'Сохранение...'; 
-		} 
-		else { 
-			this._popupButton.textContent = this._buttonSaveText; 
-		} 
-  }
-	
 	//слушатели
 	setEventListeners() {
 		this._popupElement.addEventListener('click', (evt) => {
