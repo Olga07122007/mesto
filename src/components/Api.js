@@ -1,3 +1,11 @@
+//обработка ошибок
+const onError = res => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(res.status);
+};
+
 //класс Api
 class Api {
   constructor({ baseUrl, headers }) {
@@ -12,12 +20,7 @@ class Api {
 				authorization: this._headers.authorization
 			}
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-		});
+		.then (onError);
 	};
 	
 	//добавление массива элементов при загрузке страницы
@@ -27,12 +30,7 @@ class Api {
 				authorization: this._headers.authorization
 			}
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});
+		.then (onError);
 	};
 	
 	//вся информация о пользователе и о карточках
@@ -53,12 +51,7 @@ class Api {
 				link: urlinput
 			})
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});
+		.then (onError);
 	};
 	
 	//удаление карточки
@@ -70,12 +63,7 @@ class Api {
 				'Content-Type': this._headers['Content-Type']
 			},
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});
+		.then (onError);
 	};
 	
 	//изменение аватара
@@ -90,12 +78,7 @@ class Api {
 				avatar: urlavatarinput,
 			})
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});	
+		.then (onError);	
 	};
 	
 	//изменение информации о пользователем
@@ -111,12 +94,7 @@ class Api {
 				about: data.jobinput
 			})
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});	
+		.then (onError);	
 	};
 	
 	//добавление лайка
@@ -128,12 +106,7 @@ class Api {
 				'Content-Type': this._headers['Content-Type']
 			},
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});
+		.then (onError);
 	}
 	
 	//удаление лайка
@@ -145,12 +118,7 @@ class Api {
 				'Content-Type': this._headers['Content-Type']
 			},
 		})
-		.then (res => {
-			if (res.ok) {
-				return res.json();
-			}
-			return Promise.reject(res.status);
-			});	
+		.then (onError);	
 	};
 }
 

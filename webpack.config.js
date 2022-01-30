@@ -12,7 +12,9 @@ module.exports = {
     filename: 'main.js',
     publicPath: '',
   },
-  mode: 'development',
+	//для нахождения строк с ошибками
+	devtool: 'source-map',
+	mode: 'development',
   devServer: {
     static: path.resolve(__dirname, './dist'), 
     open: true,
@@ -54,3 +56,5 @@ module.exports = {
     new MiniCssExtractPlugin(),
 	]
 }
+
+
