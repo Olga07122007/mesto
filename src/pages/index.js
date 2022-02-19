@@ -11,8 +11,6 @@ import { PopupConfirm } from "../components/PopupConfirm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 
-console.log('Olya!!!');
-
 //id пользователя
 let userId = null;
 
